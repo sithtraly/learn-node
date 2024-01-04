@@ -6,8 +6,13 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set(express.static('public'))
 
-app.use('/', function(req, res) {
+app.get('/', function(req, res) {
   res.render('index', {greeting: 'Hi'})
+})
+
+app.get('/login', function(req, res) {
+  console.log('hi')
+  res.render('login', {greeting: 'Hi'})
 })
 
 app.listen(port, function () {
