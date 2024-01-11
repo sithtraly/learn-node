@@ -1,4 +1,24 @@
 <%- include('./partials/head.ejs', {title: 'Home Page'}) %>
-  <%= greeting %>
+<% 
+  const arr = [
+    {name: 'A', gender: 'M', email: 'a@mail.com'},
+    {name: 'B', gender: 'F', email: 'b@mail.com'},
+    {name: 'C', gender: 'M', email: 'c@mail.com'},
+  ]
+%>
+<table border="border" style="border-collapse: collapse;">
+  <tr>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Email</th>
+  </tr>
+  <% for(let a of arr) { %>
+  <tr>
+    <td><%= a.name %></td>
+    <td><%= a.gender %></td>
+    <td><%= a.email %></td>
+  </tr>
+  <% } %>
+</table>
 </body>
 </html>
