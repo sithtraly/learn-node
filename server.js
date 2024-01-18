@@ -10,11 +10,25 @@ const db = new sequelize.Sequelize({
   storage: path.join(__dirname, 'db.sqlite') // './db.sqlite'
 })
 
+const userModel = db.define('users', {
+  username: {
+    type: sequelize.DataTypes.STRING,
+    allowNull: false
+  },
+  password: {
+    type: sequelize.DataTypes.STRING,
+    allowNull: false
+  }
+}, {
+  freezeTableName: true
+})
+
 try {
   db.authenticate().then(() => {
     console.log('database connected successfully.')
+    db.sync({ alter: true })
   })
-} catch(err) {
+} catch (err) {
   console.log('cannot connect to database: ')
   console.log(err)
 }
@@ -22,13 +36,13 @@ try {
 app.set('view engine', 'ejs')
 app.set(express.static('public'))
 
-app.get('/', function(req, res) {
-  res.render('index', {greeting: 'Hi'})
+app.get('/', function (req, res) {
+  res.render('index', { greeting: 'Hi' })
 })
 
-app.get('/login', function(req, res) {
+app.get('/login', function (req, res) {
   console.log('hi')
-  res.render('login', {greeting: 'Hi'})
+  res.render('login', { greeting: 'Hi' })
 })
 
 app.listen(port, function () {
