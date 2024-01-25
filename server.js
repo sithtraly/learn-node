@@ -1,6 +1,7 @@
 const express = require('express')
 const sequelize = require('sequelize')
 const path = require('path')
+const bodyParser = require('body-parser')
 
 const port = 3000
 const app = express()
@@ -34,8 +35,9 @@ try {
 }
 
 app.set('view engine', 'ejs')
-app.set(express.static('public'))
-
+app.use('/public', express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.get('/', function (req, res) {
   res.render('index', { greeting: 'Hi' })
 })
@@ -43,6 +45,18 @@ app.get('/', function (req, res) {
 app.get('/login', function (req, res) {
   console.log('hi')
   res.render('login', { greeting: 'Hi' })
+})
+
+app.get('/register', function (req, res) {
+  res.render('register')
+})
+
+app.post('/register', function (req, res) {
+  userModel.create({
+    username: req.body.username,
+    password: req.body.password,
+  })
+  res.render('register')
 })
 
 app.listen(port, function () {
