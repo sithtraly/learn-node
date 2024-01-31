@@ -59,6 +59,12 @@ app.post('/register', function (req, res) {
   res.render('register')
 })
 
+app.get('/registered', async (req, res) => {
+  const user = await userModel.findByPk(1)
+  console.log(user.dataValues)
+  res.render('users', {data: user.dataValues})
+})
+
 app.listen(port, function () {
   console.log('Server is running on: http://localhost:' + port)
 })
