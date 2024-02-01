@@ -1,6 +1,8 @@
 <%- include('./partials/head.ejs', {title: 'Registered Users'}) %>
 
-<%= data.username %>
+<% for(let u of data) { %>
+  <p><%= JSON.stringify(u) %></p>
+<% } %>
 
 </body>
 </html>
